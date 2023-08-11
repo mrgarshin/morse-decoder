@@ -39,11 +39,17 @@ const MORSE_TABLE = {
 
 function decode(expr) {
     let arr = expr.split("**********");
-    let str10 = '.';
-    let str11 = '-';
+    let result = '';
     for( let i of arr) {
-        console.log(i.replaceAll('11', str11).replaceAll('10', str10).replaceAll('0', ' '));
+        let newStr = i.replaceAll('11', '-').replaceAll('10', '.').replaceAll('0', ' ').trim().split(" ");
+        for (let j = 0; j < newStr.length; j++) {
+            if (Object.keys(MORSE_TABLE).includes(newStr[j])) {
+                result += Object.values(MORSE_TABLE)[Object.keys(MORSE_TABLE).indexOf(newStr[j])];
+            }
+        }
+        result += " "
     }
+    return result.trim()
 }
 
 module.exports = {
